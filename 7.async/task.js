@@ -11,7 +11,7 @@ class AlarmClock {
   }
 
   removeClock(id) {
-    if (this.alarmCollection.filter(item => item.id === id)) {
+    if (this.alarmCollection.find(item => item.id === id)) {
         const index = this.alarmCollection.findIndex(item => item.id === id);
         this.alarmCollection.splice(index, 1);
           return true;
