@@ -27,6 +27,7 @@ function cachingDecoratorNew(func) {
   return wrapper;
 }
 
+// Задача № 2
 
 function debounceDecoratorNew(func, ms) {
 
@@ -47,6 +48,8 @@ function debounceDecoratorNew(func, ms) {
   }
   return wrapper;
 }
+
+// Задача № 3
 
 function debounceDecorator2(func) {
   let count = 0;
