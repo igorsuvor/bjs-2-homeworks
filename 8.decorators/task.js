@@ -36,14 +36,14 @@ function debounceDecoratorNew(func, ms) {
 
   function wrapper(...rest) {
     if (!isThrottled) {
-      func.apply(this, ...rest);
+      func.call(this, ...rest);
       isThrottled = true;
       return;
     }
     clearTimeout(timeout)
     timeout = setTimeout(() => {
       isThrottled = false
-      func.apply(this, ...rest)
+      func.call(this, ...rest)
     }, ms)
   }
   return wrapper;
@@ -51,11 +51,24 @@ function debounceDecoratorNew(func, ms) {
 
 // Задача № 3
 
-function debounceDecorator2(func) {
-  let count = 0;
+function debounceDecorator2(func, ms) {
+
+  let timeout;
+  let isThrottled = false;
+  
   function wrapper(...rest) {
-    wrapper.history = count++;
-    return func.call(this, ...rest);
+    wrapper.history.push(rest)
+    if (!isThrottled) {
+      func.call(this, ...rest);
+      isThrottled = true;
+      return;
+    }
+    clearTimeout(timeout)
+    timeout = setTimeout(() => {
+      isThrottled = false
+      func.call(this, ...rest)
+    }, ms)
   }
+  wrapper.history = []
   return wrapper;
 }
