@@ -59,14 +59,16 @@ function debounceDecorator2(func, ms) {
   
   function wrapper(...rest) {
     if (!isThrottled) {
+      wrapper.count++;
       func.call(this, ...rest);
       isThrottled = true;
       return;
     }
-    wrapper.count++;
+    
     clearTimeout(timeout)
     timeout = setTimeout(() => {
       isThrottled = false
+      wrapper.count++;
       func.call(this, ...rest)
     }, ms)
   }
